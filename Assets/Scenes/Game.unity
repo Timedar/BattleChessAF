@@ -494,6 +494,9 @@ MonoBehaviour:
     type: 3}
   itemSpawnArea: {fileID: 1201324633}
   itemSpawnInterval: 2.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &246465937
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +851,62 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 123794677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &865930801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865930802}
+  - component: {fileID: 865930803}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865930802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865930801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1464522873}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865930803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865930801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5360681b464b11f4b96605fd33ad35cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Armies:
+  - units:
+    - {fileID: 1710334951977319023, guid: 2d537b8a0f6b4d94abbbe71f283af679, type: 3}
+    - {fileID: 1710334951977319023, guid: 2d537b8a0f6b4d94abbbe71f283af679, type: 3}
+    - {fileID: 9191675057910357278, guid: 5f546d59860f7e540b18873044558ac3, type: 3}
+    - {fileID: 7629428071914989377, guid: c347d398a566c7d4385dd09a02096e7f, type: 3}
+  - units:
+    - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
+    - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
+    - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
+    - {fileID: 8960535954524243608, guid: b15755e37ed7883438d8cb4bf3d7dc02, type: 3}
+    - {fileID: 7629428071914989377, guid: c347d398a566c7d4385dd09a02096e7f, type: 3}
 --- !u!1 &884237429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,6 +1499,7 @@ Transform:
   m_Children:
   - {fileID: 226485278}
   - {fileID: 717833687}
+  - {fileID: 865930802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

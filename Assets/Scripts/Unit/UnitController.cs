@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace AFSInterview
 {
-	public class UnitController : MonoBehaviour, IUnit
+	public class UnitController : UnitBase
 	{
 		[SerializeField] private UnitParameters unitParameters = null;
-
 		private int currentHealth;
 
 		private void Awake()
@@ -14,17 +13,17 @@ namespace AFSInterview
 			currentHealth = unitParameters.HealthPoints;
 		}
 
-		public void PerformAttack(IUnit enemyUnit, UnitAttributes enemyAttributes)
+		public override void PerformAttack(UnitBase enemyUnitBase, UnitAttributes enemyAttributes)
 		{
 			SpecialAttack? hasSpecialAttack =
 				unitParameters.SpecialAttack.First(x => x.aggainsAttribiute == enemyAttributes);
 
 			var damage = hasSpecialAttack != null ? hasSpecialAttack.Value.attackDamage : unitParameters.AttackDamage;
 
-			enemyUnit.ReceiveDamage(damage);
+			enemyUnitBase.ReceiveDamage(damage);
 		}
 
-		public void ReceiveDamage(int damage)
+		public override void ReceiveDamage(int damage)
 		{
 			var calculatedDamage = damage - unitParameters.ArmorPoints;
 			currentHealth -= calculatedDamage < 1 ? 1 : calculatedDamage;
