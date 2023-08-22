@@ -18,10 +18,15 @@
 				var itemValue = items[i].Value;
 				if (itemValue > maxValue)
 					continue;
-				
-				money += itemValue;
+
+				AddMoney(itemValue);
 				items.RemoveAt(i);
 			}
+		}
+
+		public void AddMoney(int money)
+		{
+			this.money += money;
 		}
 
 		public void AddItem(Item item)
