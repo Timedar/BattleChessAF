@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,34 +11,35 @@ namespace AFSInterview
 		[SerializeField] private ParticleSystem particleSystem;
 		[SerializeField] private List<Army> armies;
 
-		private List<UnitBase> unitsOreder = new List<UnitBase>();
-		private List<List<UnitBase>> instantiateArmy = new List<List<UnitBase>>();
+		private List<UnitBase> unitsOrder = new List<UnitBase>();
+		private List<List<UnitBase>> instantiatedArmies = new List<List<UnitBase>>();
 
 		private System.Random random;
 		private float nextTurnTime;
 		private int currentEnemy = 0;
-		private int turn;
 
 		private void Awake()
 		{
 			random = new System.Random(Random.Range(0, int.MaxValue));
 
 			SetupOnFieldArmies(armies);
-			ShuffleOrderList(unitsOreder);
+			ShuffleOrderList(unitsOrder);
 		}
 
-		private void SetupOnFieldArmies(List<Army> army)
+		private void SetupOnFieldArmies(List<Army> armyList)
 		{
-			for (int i = 0; i < army.Count; i++)
+			foreach (var army in armyList)
 			{
-				instantiateArmy.Add(new List<UnitBase>());
+				var instantiatedUnits = new List<UnitBase>();
 
-				foreach (var unit in army[i].units)
+				foreach (var unit in army.units)
 				{
-					var spawnedUnit = SpawnUnit(unit, this.armies[i].bounds);
-					instantiateArmy[i].Add(spawnedUnit);
-					unitsOreder.Add(spawnedUnit);
+					var spawnedUnit = SpawnUnit(unit, army.bounds);
+					instantiatedUnits.Add(spawnedUnit);
+					unitsOrder.Add(spawnedUnit);
 				}
+
+				instantiatedArmies.Add(instantiatedUnits);
 			}
 		}
 
@@ -52,17 +52,19 @@ namespace AFSInterview
 				Random.Range(spawnAreaBounds.min.z, spawnAreaBounds.max.z)
 			);
 
-			return Instantiate(unit, position, quaternion.identity);
+			return Instantiate(unit, position, Quaternion.identity);
 		}
 
 		private void ShuffleOrderList(List<UnitBase> list)
 		{
-			for (int i = 0; i < list.Count; i++)
+			int count = list.Count;
+			while (count > 1)
 			{
-				UnitBase temp = list[i];
-				int randomIndex = random.Next(i, list.Count);
-				list[i] = list[randomIndex];
-				list[randomIndex] = temp;
+				count--;
+				int randomIndex = random.Next(count + 1);
+				UnitBase temp = list[randomIndex];
+				list[randomIndex] = list[count];
+				list[count] = temp;
 			}
 		}
 
@@ -72,23 +74,23 @@ namespace AFSInterview
 			{
 				AttackRandomEnemy(unit);
 				nextTurnTime = Time.time + timeBetweenTurns;
-				return;
 			}
-
-			turn++;
-			currentEnemy++;
-			currentEnemy = currentEnemy > unitsOreder.Count - 1 ? 0 : currentEnemy;
+			else
+			{
+				currentEnemy = (currentEnemy + 1) % unitsOrder.Count;
+			}
 		}
 
 		private void AttackRandomEnemy(UnitBase unit)
 		{
-			var enemyArmy = instantiateArmy[0].Contains(unit) ? instantiateArmy[1] : instantiateArmy[0];
+			var enemyIndex = instantiatedArmies[0].Contains(unit) ? 1 : 0;
+			var enemyArmy = instantiatedArmies[enemyIndex];
 			var randomEnemy = enemyArmy[random.Next(0, enemyArmy.Count)];
 			unit.PerformAttack(randomEnemy);
 
 			SetParticleSystem(randomEnemy.transform.position, unit.transform.position);
 
-			Debug.Log($"{unit.gameObject.name} attack on {randomEnemy.gameObject.name}");
+			Debug.Log($"{unit.gameObject.name} attacks {randomEnemy.gameObject.name}");
 		}
 
 		private void SetParticleSystem(Vector3 target, Vector3 origin)
@@ -98,7 +100,7 @@ namespace AFSInterview
 			shape.position = particleSystem.transform.InverseTransformPoint(origin) + Vector3.up;
 
 			var velocity = particleSystem.velocityOverLifetime;
-			velocity.radialMultiplier = velocity.radialMultiplier / timeBetweenTurns;
+			velocity.radialMultiplier /= timeBetweenTurns;
 
 			particleSystem.startLifetime = timeBetweenTurns;
 			particleSystem.Play();
@@ -107,7 +109,7 @@ namespace AFSInterview
 		private void Update()
 		{
 			if (Time.time >= nextTurnTime)
-				ProcessTurn(unitsOreder[currentEnemy]);
+				ProcessTurn(unitsOrder[currentEnemy]);
 		}
 	}
 

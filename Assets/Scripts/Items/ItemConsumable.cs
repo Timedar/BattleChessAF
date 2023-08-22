@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace AFSInterview.Items
 {
-	public class ItemConsumable : MonoBehaviour, IItemConsumable
+	public class ItemConsumable : ItemPresenter, IItemConsumable
 	{
 		[SerializeField] private Item itemToAdded;
 		[SerializeField] private int moneyToAdded;
@@ -11,6 +11,8 @@ namespace AFSInterview.Items
 
 		public void UseConsumableItem(InventoryController inventoryController)
 		{
+			item.Use();
+
 			switch (consumableOption)
 			{
 				case ConsumableOption.AddItem:

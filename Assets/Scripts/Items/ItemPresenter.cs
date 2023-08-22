@@ -4,7 +4,7 @@
 
 	public class ItemPresenter : MonoBehaviour, IItemHolder
 	{
-		[SerializeField] private Item item;
+		[SerializeField] protected Item item;
         
 		public Item GetItem(bool disposeHolder)
 		{
