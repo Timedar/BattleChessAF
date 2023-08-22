@@ -7,7 +7,7 @@ namespace AFSInterview
 	{
 		[SerializeField] private UnitParameters unitParameters = null;
 
-		private int turnSinceLastAttack = 1;
+		private float turnSinceLastAttack = 1;
 		private int currentHealth = 0;
 
 		private void Awake()
@@ -18,9 +18,7 @@ namespace AFSInterview
 		public override bool CanAttack()
 		{
 			var canAttack = turnSinceLastAttack >= unitParameters.AttackInterval;
-
-			turnSinceLastAttack += canAttack ? -turnSinceLastAttack : 1;
-
+			turnSinceLastAttack += canAttack ? -unitParameters.AttackInterval : 1;
 			return canAttack;
 		}
 

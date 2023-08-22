@@ -49,9 +49,11 @@ MonoBehaviour:
     unitAttributes: 0
     healthPoints: 100
     armorPoints: 3
-    attackInterval: 1
-    attackDamage: 20
-    specialAttack: []
+    attackInterval: 1.007
+    attackDamage: 52
+    specialAttack:
+    - attackDamage: 500
+      aggainsAttribiute: 2
 --- !u!1 &8694582363295511141
 GameObject:
   m_ObjectHideFlags: 0

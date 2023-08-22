@@ -17,7 +17,7 @@ namespace AFSInterview
 		private System.Random random;
 		private float nextTurnTime;
 		private int currentEnemy = 0;
-		private int round;
+		private int turn;
 
 		private void Awake()
 		{
@@ -67,25 +67,25 @@ namespace AFSInterview
 
 		private void ProcessTurn(UnitBase unit)
 		{
-			AttackRandomEnemy(unit);
+			if (unit.CanAttack())
+			{
+				AttackRandomEnemy(unit);
+				nextTurnTime = Time.time + timeBetweenTurns;
+				return;
+			}
 
-			round++;
+			turn++;
 			currentEnemy++;
 			currentEnemy = currentEnemy > unitsOreder.Count - 1 ? 0 : currentEnemy;
-
-			nextTurnTime = Time.time + timeBetweenTurns;
 		}
 
 		private void AttackRandomEnemy(UnitBase unit)
 		{
-			while (unit.CanAttack())
-			{
-				var enemyArmy = instantiateArmy[0].Contains(unit) ? instantiateArmy[1] : instantiateArmy[0];
-				var randomEnemy = enemyArmy[random.Next(0, enemyArmy.Count)];
-				unit.PerformAttack(randomEnemy, UnitAttributes.None);
-				
-				Debug.Log($"{unit.gameObject.name} attack on {randomEnemy.gameObject.name}");
-			}
+			var enemyArmy = instantiateArmy[0].Contains(unit) ? instantiateArmy[1] : instantiateArmy[0];
+			var randomEnemy = enemyArmy[random.Next(0, enemyArmy.Count)];
+			unit.PerformAttack(randomEnemy, UnitAttributes.None);
+
+			Debug.Log($"{unit.gameObject.name} attack on {randomEnemy.gameObject.name}");
 		}
 
 		private void Update()
