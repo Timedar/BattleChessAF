@@ -83,7 +83,7 @@ namespace AFSInterview
 		{
 			var enemyArmy = instantiateArmy[0].Contains(unit) ? instantiateArmy[1] : instantiateArmy[0];
 			var randomEnemy = enemyArmy[random.Next(0, enemyArmy.Count)];
-			unit.PerformAttack(randomEnemy, UnitAttributes.None);
+			unit.PerformAttack(randomEnemy);
 
 			Debug.Log($"{unit.gameObject.name} attack on {randomEnemy.gameObject.name}");
 		}

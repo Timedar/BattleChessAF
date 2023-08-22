@@ -15,6 +15,8 @@ namespace AFSInterview
 			currentHealth = unitParameters.HealthPoints;
 		}
 
+		public override UnitAttributes GetUnitAttributes() => unitParameters.Attributes;
+
 		public override bool CanAttack()
 		{
 			var canAttack = turnSinceLastAttack >= unitParameters.AttackInterval;
@@ -22,15 +24,17 @@ namespace AFSInterview
 			return canAttack;
 		}
 
-		public override void PerformAttack(UnitBase enemyUnitBase, UnitAttributes enemyAttributes)
+		public override void PerformAttack(UnitBase enemyUnitBase)
 		{
 			var hasSpecialAttack =
-				unitParameters.SpecialAttack.FirstOrDefault(x => x.aggainsAttribiute == enemyAttributes);
+				unitParameters.SpecialAttack.FirstOrDefault(x =>
+					x.aggainsAttribiute == enemyUnitBase.GetUnitAttributes());
 
 			var damage = hasSpecialAttack.aggainsAttribiute == UnitAttributes.None
 				? unitParameters.AttackDamage
 				: hasSpecialAttack.attackDamage;
 
+			Debug.Log($"damage{damage}");
 			enemyUnitBase.ReceiveDamage(damage);
 		}
 
@@ -38,7 +42,7 @@ namespace AFSInterview
 		{
 			var calculatedDamage = damage - unitParameters.ArmorPoints;
 			currentHealth -= calculatedDamage < 1 ? 1 : calculatedDamage;
-
+			Debug.Log(currentHealth);
 			if (currentHealth < 0)
 				Destroy(gameObject);
 		}

@@ -46,12 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitParameters:
-    unitAttributes: 0
+    unitAttributes: 4
     healthPoints: 100
     armorPoints: 14
     attackInterval: 1
     attackDamage: 20
-    specialAttack: []
+    specialAttack:
+    - attackDamage: 40
+      aggainsAttribiute: 4
 --- !u!1 &2930661184689196255
 GameObject:
   m_ObjectHideFlags: 0
