@@ -6,7 +6,7 @@ namespace AFSInterview
 	[Serializable]
 	public struct SpecialAttack
 	{
-		public float attackDamage;
+		public int attackDamage;
 		public UnitAttributes aggainsAttribiute;
 	}
 }
