@@ -49,7 +49,7 @@ MonoBehaviour:
     unitAttributes: 0
     healthPoints: 300
     armorPoints: 20
-    attackInterval: 1.5
+    attackInterval: 1
     attackDamage: 20
     specialAttack: []
 --- !u!1 &7838633100335100436
