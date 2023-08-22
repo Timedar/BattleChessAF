@@ -6,20 +6,35 @@ namespace AFSInterview
 	public class UnitController : UnitBase
 	{
 		[SerializeField] private UnitParameters unitParameters = null;
-		private int currentHealth;
+
+		private float turnSinceLastAttack = 1;
+		private int currentHealth = 0;
 
 		private void Awake()
 		{
 			currentHealth = unitParameters.HealthPoints;
 		}
 
-		public override void PerformAttack(UnitBase enemyUnitBase, UnitAttributes enemyAttributes)
+		public override UnitAttributes GetUnitAttributes() => unitParameters.Attributes;
+
+		public override bool CanAttack()
 		{
-			SpecialAttack? hasSpecialAttack =
-				unitParameters.SpecialAttack.First(x => x.aggainsAttribiute == enemyAttributes);
+			var canAttack = turnSinceLastAttack >= unitParameters.AttackInterval;
+			turnSinceLastAttack += canAttack ? -unitParameters.AttackInterval : 1;
+			return canAttack;
+		}
 
-			var damage = hasSpecialAttack != null ? hasSpecialAttack.Value.attackDamage : unitParameters.AttackDamage;
+		public override void PerformAttack(UnitBase enemyUnitBase)
+		{
+			var hasSpecialAttack =
+				unitParameters.SpecialAttack.FirstOrDefault(x =>
+					x.aggainsAttribiute == enemyUnitBase.GetUnitAttributes());
 
+			var damage = hasSpecialAttack.aggainsAttribiute == UnitAttributes.None
+				? unitParameters.AttackDamage
+				: hasSpecialAttack.attackDamage;
+
+			Debug.Log($"damage{damage}");
 			enemyUnitBase.ReceiveDamage(damage);
 		}
 
@@ -27,6 +42,9 @@ namespace AFSInterview
 		{
 			var calculatedDamage = damage - unitParameters.ArmorPoints;
 			currentHealth -= calculatedDamage < 1 ? 1 : calculatedDamage;
+			Debug.Log(currentHealth);
+			if (currentHealth < 0)
+				Destroy(gameObject);
 		}
 	}
 }
