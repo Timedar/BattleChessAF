@@ -8,8 +8,9 @@ namespace AFSInterview
 {
 	public class CombatManager : MonoBehaviour
 	{
-		[SerializeField] private List<Army> armies;
 		[SerializeField] private float timeBetweenTurns = 2f;
+		[SerializeField] private ParticleSystem particleSystem;
+		[SerializeField] private List<Army> armies;
 
 		private List<UnitBase> unitsOreder = new List<UnitBase>();
 		private List<List<UnitBase>> instantiateArmy = new List<List<UnitBase>>();
@@ -85,7 +86,22 @@ namespace AFSInterview
 			var randomEnemy = enemyArmy[random.Next(0, enemyArmy.Count)];
 			unit.PerformAttack(randomEnemy);
 
+			SetParticleSystem(randomEnemy.transform.position, unit.transform.position);
+
 			Debug.Log($"{unit.gameObject.name} attack on {randomEnemy.gameObject.name}");
+		}
+
+		private void SetParticleSystem(Vector3 target, Vector3 origin)
+		{
+			particleSystem.transform.position = target;
+			var shape = particleSystem.shape;
+			shape.position = particleSystem.transform.InverseTransformPoint(origin) + Vector3.up;
+
+			var velocity = particleSystem.velocityOverLifetime;
+			velocity.radialMultiplier = velocity.radialMultiplier / timeBetweenTurns;
+
+			particleSystem.startLifetime = timeBetweenTurns;
+			particleSystem.Play();
 		}
 
 		private void Update()
