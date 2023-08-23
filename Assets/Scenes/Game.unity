@@ -759,21 +759,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenTurns: 1
-  particleSystem: {fileID: 1465536967}
+  attackVisualisation: {fileID: 1465536969}
   armies:
-  - units:
+  - Units:
     - {fileID: 1710334951977319023, guid: 2d537b8a0f6b4d94abbbe71f283af679, type: 3}
     - {fileID: 1710334951977319023, guid: 2d537b8a0f6b4d94abbbe71f283af679, type: 3}
     - {fileID: 9191675057910357278, guid: 5f546d59860f7e540b18873044558ac3, type: 3}
     - {fileID: 7629428071914989377, guid: c347d398a566c7d4385dd09a02096e7f, type: 3}
-    bounds: {fileID: 284610756}
-  - units:
+    ArmyContainer: {fileID: 278868168}
+    BoundColider: {fileID: 284610756}
+  - Units:
     - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
     - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
     - {fileID: 4161466365907853447, guid: 5238dd5ac01b4d449be46277b4ff602b, type: 3}
     - {fileID: 8960535954524243608, guid: b15755e37ed7883438d8cb4bf3d7dc02, type: 3}
     - {fileID: 7629428071914989377, guid: c347d398a566c7d4385dd09a02096e7f, type: 3}
-    bounds: {fileID: 1552190842}
+    ArmyContainer: {fileID: 1353391285}
+    BoundColider: {fileID: 1552190842}
 --- !u!1 &726838010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1530,7 @@ GameObject:
   - component: {fileID: 1465536968}
   - component: {fileID: 1465536967}
   - component: {fileID: 1465536966}
+  - component: {fileID: 1465536969}
   m_Layer: 0
   m_Name: ShootingParticleSystem
   m_TagString: Untagged
@@ -2239,7 +2242,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 10
     angle: 38.9
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -2247,7 +2250,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 18.08, y: 0, z: 1.81}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 34.656162, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -6404,6 +6407,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1465536969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465536965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0b1a4dc931422097e885644b02fe9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem: {fileID: 1465536967}
 --- !u!1001 &1472453789
 PrefabInstance:
   m_ObjectHideFlags: 0

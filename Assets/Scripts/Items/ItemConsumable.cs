@@ -3,16 +3,24 @@ using UnityEngine.Serialization;
 
 namespace AFSInterview.Items
 {
-	public class ItemConsumable : ItemPresenter, IItemConsumable
+	public class ItemConsumable : Item, IItemConsumable
 	{
-		[SerializeField] private Item itemToAdded;
-		[SerializeField] private int moneyToAdded;
-		[SerializeField] private ConsumableOption consumableOption;
+		private Item itemToAdded;
+		private int moneyToAdded;
+		private ConsumableOption consumableOption;
 
-		public void UseConsumableItem(InventoryController inventoryController)
+		public ItemConsumable(string name, int value, ConsumableOption option, Item itemToAdd, int moneyToAdd) : base(
+			name, value)
 		{
-			item.Use();
+			consumableOption = option;
+			itemToAdded = itemToAdd;
+			moneyToAdded = moneyToAdd;
+		}
 
+		public void Use(InventoryController inventoryController) => Consume(inventoryController);
+
+		public void Consume(InventoryController inventoryController)
+		{
 			switch (consumableOption)
 			{
 				case ConsumableOption.AddItem:

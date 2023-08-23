@@ -9,7 +9,7 @@ namespace AFSInterview
 	{
 		[SerializeField] private UnitAttributes unitAttributes = UnitAttributes.None;
 		[SerializeField] private int healthPoints = 100;
-		[SerializeField] private int armorPoints = 20;
+		[SerializeField] private int armorPoints = 10;
 		[SerializeField, Range(0, 2)] private float attackInterval = 1f;
 		[SerializeField] private int attackDamage = 20;
 		[SerializeField] private List<SpecialAttack> specialAttack;

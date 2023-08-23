@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitParameters:
     unitAttributes: 4
-    healthPoints: 100
+    healthPoints: 108
     armorPoints: 3
     attackInterval: 1
     attackDamage: 50

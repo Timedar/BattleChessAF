@@ -8,7 +8,6 @@ namespace AFSInterview
 		[SerializeField] private UnitParameters unitParameters = null;
 
 		private float turnsSinceLastAttack = 1;
-		private int currentHealth = 0;
 
 		private void Awake()
 		{
@@ -40,14 +39,6 @@ namespace AFSInterview
 		{
 			var calculatedDamage = damage - unitParameters.ArmorPoints;
 			currentHealth -= Mathf.Max(1, calculatedDamage);
-
-			TryHandleDeath();
-		}
-
-		private void TryHandleDeath()
-		{
-			if (currentHealth <= 0)
-				Destroy(gameObject);
 		}
 	}
 }

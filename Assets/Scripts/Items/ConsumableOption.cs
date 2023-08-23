@@ -1,5 +1,8 @@
-public enum ConsumableOption
+namespace AFSInterview.Items
 {
-	AddMoney,
-	AddItem
+	public enum ConsumableOption
+	{
+		AddMoney,
+		AddItem
+	}
 }

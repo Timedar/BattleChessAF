@@ -62,7 +62,11 @@ namespace AFSInterview.Items
 				return;
 
 			var item = itemHolder.GetItem(true);
-			inventoryController.AddItem(item);
+
+			if (item is ItemConsumable consumableItem)
+				consumableItem.Use(inventoryController);
+			else
+				inventoryController.AddItem(item);
 
 			Debug.Log(
 				$"Picked up {item.Name} with value of {item.Value} and now have {inventoryController.ItemsCount} items.");
